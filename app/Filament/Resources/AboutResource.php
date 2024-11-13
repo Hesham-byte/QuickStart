@@ -2,45 +2,35 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FeaturedServiceResource\Pages;
-use App\Filament\Resources\FeaturedServiceResource\RelationManagers;
-use App\Models\FeaturedService;
 use Filament\Forms;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ToggleColumn;
+use App\Models\About;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Guava\FilamentIconPicker\Forms\IconPicker;
-use Guava\FilamentIconPicker\Tables\IconColumn;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\AboutResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\AboutResource\RelationManagers;
+use Filament\Tables\Columns\ToggleColumn;
 
-class FeaturedServiceResource extends Resource
+class AboutResource extends Resource
 {
-    protected static ?string $model = FeaturedService::class;
+    protected static ?string $model = About::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'About';
 
-    protected static ?int $navigationSort = 0;
-
-
+    protected static ?int $navigationSort = 1;
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('title')
-                    ->required()
-                    ->minLength(3)
-                    ->maxLength(32),
-                IconPicker::make('icon'),
                 Textarea::make('description')
                     ->required()
                     ->minLength(3)
-                    ->maxLength(256)
+                    ->maxLength(1024)
                     ->columnSpan(2),
             ]);
     }
@@ -51,8 +41,6 @@ class FeaturedServiceResource extends Resource
             ->reorderable('sort')
             ->defaultSort('sort')
             ->columns([
-                IconColumn::make('icon'),
-                TextColumn::make('title'),
                 TextColumn::make('description')
                     ->formatStateUsing(fn(string $state): string => \Illuminate\Support\Str::limit($state, 50, '...')),
                 ToggleColumn::make('active')->label('Status'),
@@ -84,9 +72,9 @@ class FeaturedServiceResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFeaturedServices::route('/'),
-            'create' => Pages\CreateFeaturedService::route('/create'),
-            'edit' => Pages\EditFeaturedService::route('/{record}/edit'),
+            'index' => Pages\ListAbouts::route('/'),
+            'create' => Pages\CreateAbout::route('/create'),
+            'edit' => Pages\EditAbout::route('/{record}/edit'),
         ];
     }
 

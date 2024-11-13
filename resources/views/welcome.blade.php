@@ -97,15 +97,17 @@
 
                 <div class="row gy-4">
                     @foreach ($FeaturedServices as $featuredService)
-                    <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="service-item d-flex">
-                            <div class="flex-shrink-0 icon"><i class="bi {{ $featuredService->icon }}"></i></div>
-                            <div>
-                                <h4 class="title"><a href="#" class="stretched-link">{{ $featuredService->title }}</a></h4>
-                                <p class="description">{{ $featuredService->description }}</p>
+                        <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                            <div class="service-item d-flex">
+                                <div class="flex-shrink-0 icon"><i class="bi {{ $featuredService->icon }}"></i></div>
+                                <div>
+                                    <h4 class="title"><a href="#"
+                                            class="stretched-link">{{ $featuredService->title }}</a>
+                                    </h4>
+                                    <p class="description">{{ $featuredService->description }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
 
@@ -122,20 +124,16 @@
 
                     <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
                         <p class="who-we-are">Who We Are</p>
-                        <h3>Unleashing Potential with Creative Strategy</h3>
-                        <p class="fst-italic">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore
-                            magna aliqua.
-                        </p>
+                        @if ($AboutHeader)
+                            <h3>{{ $AboutHeader->title }}</h3>
+                            <p class="fst-italic">
+                                {{ $AboutHeader->description }}
+                            </p>
+                        @endif
                         <ul>
-                            <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat.</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in
-                                    voluptate velit.</span></li>
-                            <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate trideta
-                                    storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                            @foreach ($AboutList as $about)
+                                <li><i class="bi bi-check-circle"></i> <span>{{ $about->description }}</span></li>
+                            @endforeach
                         </ul>
                         <a href="#" class="read-more"><span>Read More</span><i
                                 class="bi bi-arrow-right"></i></a>
@@ -174,37 +172,11 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="row gy-4">
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('QuickStart-1.0.0/assets/img/clients/client-1.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('QuickStart-1.0.0/assets/img/clients/client-2.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('QuickStart-1.0.0/assets/img/clients/client-3.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('QuickStart-1.0.0/assets/img/clients/client-4.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('QuickStart-1.0.0/assets/img/clients/client-5.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
-                    <div class="col-xl-2 col-md-3 col-6 client-logo">
-                        <img src="{{ asset('QuickStart-1.0.0/assets/img/clients/client-6.png') }}" class="img-fluid"
-                            alt="">
-                    </div><!-- End Client Item -->
-
+                    @foreach ($Clients as $client)
+                        <div class="col-xl-2 col-md-3 col-6 client-logo">
+                            <img src="{{ $client->getFirstMediaUrl() }}" class="img-fluid" alt="">
+                        </div>
+                    @endforeach
                 </div>
 
             </div>
@@ -707,7 +679,7 @@
 
                 <div class="swiper init-swiper">
                     <script type="application/json" class="swiper-config">
-            {
+                        {
               "loop": true,
               "speed": 600,
               "autoplay": {
@@ -730,7 +702,7 @@
                 }
               }
             }
-          </script>
+                    </script>
                     <div class="swiper-wrapper">
 
                         <div class="swiper-slide">
